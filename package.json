@@ -23,6 +23,7 @@
   "homepage": "https://github.com/fdnd-task/server-side-rendering#readme",
   "dependencies": {
     "express": "latest",
-    "liquidjs": "latest"
+    "liquidjs": "latest",
+    "nodemon": "^3.1.14"
   }
 }
