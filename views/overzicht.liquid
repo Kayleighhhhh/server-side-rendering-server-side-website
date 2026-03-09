@@ -1,5 +1,13 @@
 {% render 'partials/head.liquid' %}
 
-
+<ul>
+    {% for instrument in instrumenten %}
+        <li>
+            <a href="/instrumenten/{{ instrument.key }}">
+                <h2>{{ instrument.name }}</h2></a>
+            <p>status: {{ instrument.status }}</p>
+        </li>
+    {% endfor %}
+</ul>
 
 {% render 'partials/foot.liquid' %}
