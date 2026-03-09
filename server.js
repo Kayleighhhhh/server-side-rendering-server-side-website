@@ -6,12 +6,12 @@ import express from 'express'
 import { Liquid } from 'liquidjs';
 
 
-console.log('Hieronder moet je waarschijnlijk nog wat veranderen')
+// console.log('Hieronder moet je waarschijnlijk nog wat veranderen')
 // Doe een fetch naar de data die je nodig hebt
-// const apiResponse = await fetch('...')
+const apiResponse = await fetch('https://fdnd-agency.directus.app/items/preludefonds_instruments/')
 
 // Lees van de response van die fetch het JSON object in, waar we iets mee kunnen doen
-// const apiResponseJSON = await apiResponse.json()
+const apiResponseJSON = await apiResponse.json()
 
 // Controleer eventueel de data in je console
 // (Let op: dit is _niet_ de console van je browser, maar van NodeJS, in je terminal)
@@ -40,8 +40,77 @@ app.set('views', './views')
 app.get('/', async function (request, response) {
    // Render index.liquid uit de Views map
    // Geef hier eventueel data aan mee
-   response.render('detail.liquid')
+   response.render('home.liquid')
 })
+
+// Maak een GET route voor de index (meestal doe je dit in de root, als /)
+app.get('/instrumenten', async function (request, response) {
+   // Render index.liquid uit de Views map
+   // Geef hier eventueel data aan mee
+
+   response.render('overzicht.liquid',{
+     instrumenten: apiResponseJSON.data
+   })
+})
+
+// Maak een GET route voor de index (meestal doe je dit in de root, als /)
+app.get('/instrumenten/nieuw', async function (request, response) {
+   // Render index.liquid uit de Views map
+   // Geef hier eventueel data aan mee
+   response.render('nieuw.liquid')
+})
+
+// Maak een GET route voor de index (meestal doe je dit in de root, als /)
+app.get('/instrumenten/:key', async function (request, response) {
+   // Render index.liquid uit de Views map
+   // Geef hier eventueel data aan mee
+
+  const instrumentResponse = await fetch('https://fdnd-agency.directus.app/items/preludefonds_instruments/?filter[key]=' + request.params.key)
+  const instrumentResponseJSON = await instrumentResponse.json()
+  
+   response.render('detail.liquid', {
+    instrument: instrumentResponseJSON.data[0]
+   })
+})
+
+// Maak een GET route voor de index (meestal doe je dit in de root, als /)
+app.get('/instrumenten/:key/uitlenen', async function (request, response) {
+   // Render index.liquid uit de Views map
+   // Geef hier eventueel data aan mee
+
+  const instrumentResponse = await fetch('https://fdnd-agency.directus.app/items/preludefonds_instruments/?filter[key]=' + request.params.key)
+  const instrumentResponseJSON = await instrumentResponse.json()
+
+   response.render('uitlenen.liquid', {
+    instrument: instrumentResponseJSON.data[0]
+   })
+})
+
+// Maak een GET route voor de index (meestal doe je dit in de root, als /)
+app.get('/instrumenten/:key/innemen', async function (request, response) {
+   // Render index.liquid uit de Views map
+   // Geef hier eventueel data aan mee
+
+  const instrumentResponse = await fetch('https://fdnd-agency.directus.app/items/preludefonds_instruments/?filter[key]=' + request.params.key)
+  const instrumentResponseJSON = await instrumentResponse.json()
+
+   response.render('innemen.liquid', {
+    instrument: instrumentResponseJSON.data
+   })
+})
+
+// Maak een GET route voor de index (meestal doe je dit in de root, als /)
+app.get('/instrumenten/:key/schade', async function (request, response) {
+   // Render index.liquid uit de Views map
+   // Geef hier eventueel data aan mee
+  const instrumentResponse = await fetch('https://fdnd-agency.directus.app/items/preludefonds_instruments/?filter[key]=' + request.params.key)
+  const instrumentResponseJSON = await instrumentResponse.json()
+
+   response.render('schade.liquid', {
+    instrument: instrumentResponseJSON.data
+   })
+})
+
 
 // Maak een POST route voor de index; hiermee kun je bijvoorbeeld formulieren afvangen
 // Hier doen we nu nog niets mee, maar je kunt er mee spelen als je wilt
@@ -49,6 +118,11 @@ app.post('/', async function (request, response) {
   // Je zou hier data kunnen opslaan, of veranderen, of wat je maar wilt
   // Er is nog geen afhandeling van een POST, dus stuur de bezoeker terug naar /
   response.redirect(303, '/')
+})
+
+app.use((req, res, next) => {
+
+  res.status(404).render('error.liquid')
 })
 
 // Stel het poortnummer in waar Express op moet gaan luisteren
