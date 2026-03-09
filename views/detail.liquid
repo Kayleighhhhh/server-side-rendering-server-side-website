@@ -1,5 +1,7 @@
 {% render 'partials/head.liquid' %}
 
-
+<a href="/instrumenten/{{ instrument.key }}/uitlenen" >uitlenen</a>
+{{ instrument | json }}
+{{ instrument.status }}
 
 {% render 'partials/foot.liquid' %}
