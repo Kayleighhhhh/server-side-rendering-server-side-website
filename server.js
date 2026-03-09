@@ -95,7 +95,7 @@ app.get('/instrumenten/:key/innemen', async function (request, response) {
   const instrumentResponseJSON = await instrumentResponse.json()
 
    response.render('innemen.liquid', {
-    instrument: instrumentResponseJSON.data
+    instrument: instrumentResponseJSON.data[0]
    })
 })
 
@@ -107,7 +107,7 @@ app.get('/instrumenten/:key/schade', async function (request, response) {
   const instrumentResponseJSON = await instrumentResponse.json()
 
    response.render('schade.liquid', {
-    instrument: instrumentResponseJSON.data
+    instrument: instrumentResponseJSON.data[0]
    })
 })
 
