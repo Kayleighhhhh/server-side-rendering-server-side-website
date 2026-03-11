@@ -48,6 +48,8 @@ app.get('/instrumenten', async function (request, response) {
    // Render index.liquid uit de Views map
    // Geef hier eventueel data aan mee
 
+   const instrumentType = request.query.type
+
    response.render('overzicht.liquid',{
      instrumenten: apiResponseJSON.data
    })
