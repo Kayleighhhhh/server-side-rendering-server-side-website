@@ -5,6 +5,8 @@ import express from 'express'
 // Importeer de Liquid package (ook als dependency via npm geïnstalleerd)
 import { Liquid } from 'liquidjs';
 
+  // const personResponse = await fetch('https://fdnd.directus.app/items/person/?' + new URLSearchParams(personParams))
+  // const personResponseJSON = await personResponse.json()
 
 // console.log('Hieronder moet je waarschijnlijk nog wat veranderen')
 // Doe een fetch naar de data die je nodig hebt
@@ -48,10 +50,23 @@ app.get('/instrumenten', async function (request, response) {
    // Render index.liquid uit de Views map
    // Geef hier eventueel data aan mee
 
-   const instrumentType = request.query.type
+   const soort = request.query.instrument
+
+  const instrumentParams = {}
+
+  if (soort) {
+   instrumentParams['filter[instrument][_eq]'] = soort
+  }
+
+  const instrumentsResponse = await fetch('https://fdnd-agency.directus.app/items/preludefonds_instruments/?' + new URLSearchParams(instrumentParams))
+
+  const instrumentsResponseJSON = await instrumentsResponse.json()
+   
 
    response.render('overzicht.liquid',{
-     instrumenten: apiResponseJSON.data
+     instrumenten: apiResponseJSON.data,
+     instrumenten: instrumentsResponseJSON.data,
+     soort: soort
    })
 })
 
