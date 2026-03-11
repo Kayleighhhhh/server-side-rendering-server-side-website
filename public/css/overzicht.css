@@ -67,6 +67,11 @@
         border: 1px solid var(--secondair);
         border-radius: 2rem;
         overflow: hidden;
+        width: 100%;
+
+        .ins-title {
+            margin-top: .7em;
+        }
 
         .ins-row {
             border-bottom: 1px solid var(--secondair);
@@ -82,7 +87,7 @@
             text-decoration: none;
             color: var(--darktext);
 
-            .ins-title { margin: 0; font-size: 1.1rem; }
+            .ins-name { margin: 0; font-size: 1.1rem; }
             .ins-status { margin: 0; font-size: 0.9rem; }
         }
     }
