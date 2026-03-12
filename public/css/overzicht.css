@@ -70,7 +70,9 @@
         width: 100%;
 
         .ins-title {
-            margin-top: .7em;
+            justify-self: left;
+            padding: .5em 1.3em;
+
         }
 
         .ins-row {
